@@ -3,6 +3,7 @@ package world.xuewei.service;
 import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import world.xuewei.dao.HistoryDao;
 import world.xuewei.entity.History;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * 历史服务类
  *
- * @author XUEW
+ *
  */
 @Service
 public class HistoryService extends BaseService<History> {
@@ -28,7 +29,7 @@ public class HistoryService extends BaseService<History> {
 
     @Override
     public List<History> query(History o) {
-        QueryWrapper<History> wrapper = new QueryWrapper();
+        QueryWrapper<History> wrapper = new QueryWrapper<>();
         if (Assert.notEmpty(o)) {
             Map<String, Object> bean2Map = BeanUtil.bean2Map(o);
             for (String key : bean2Map.keySet()) {
@@ -44,6 +45,12 @@ public class HistoryService extends BaseService<History> {
     @Override
     public List<History> all() {
         return query(null);
+    }
+
+    @Override
+    @Cacheable(value = "history", key = "#id")
+    public History getById(Serializable id) {
+        return historyDao.selectById(id);
     }
 
     @Override
@@ -68,7 +75,7 @@ public class HistoryService extends BaseService<History> {
 
     public boolean insetOne(Integer uid, Integer type, String nameValue) {
         History history = new History();
-        history.setUserId(uid).setKeyword(nameValue).setOperateType(type);
+        history.setUserId(uid).setKeyword(nameValue).setOperateType(String.valueOf(type));
         return historyDao.insert(history) > 0;
     }
 

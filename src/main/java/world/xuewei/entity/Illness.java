@@ -9,19 +9,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 疾病实体
  *
- * @author XUEW
+ *
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @TableName("illness")
-public class Illness {
+public class Illness implements Serializable {
+    
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键ID
@@ -69,4 +74,5 @@ public class Illness {
 
     @TableField(exist = false)
     private IllnessMedicine illnessMedicine;
+
 }

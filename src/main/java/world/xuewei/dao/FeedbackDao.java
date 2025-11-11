@@ -7,7 +7,7 @@ import world.xuewei.entity.Feedback;
 /**
  * 反馈数据库访问
  *
- * @author XUEW
+ *
  */
 @Repository
 public interface FeedbackDao extends BaseMapper<Feedback> {

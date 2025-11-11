@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * MVC 配置
  *
- * @author XUEW
+ *
  */
 @Configuration
 public class MvcConfig implements WebMvcConfigurer, ErrorPageRegistrar {

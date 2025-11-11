@@ -9,7 +9,7 @@ import world.xuewei.entity.User;
 /**
  * 消息控制器
  *
- * @author XUEW
+ *
  */
 @RestController
 @RequestMapping("/message")
@@ -23,4 +23,5 @@ public class MessageController extends BaseController<User> {
         String result = apiService.query(content);
         return RespResult.success(result);
     }
+
 }

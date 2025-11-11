@@ -12,15 +12,15 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
- * 历史实体
+ * 搜索历史实体
  *
- * @author XUEW
+ *
  */
 @Data
+@Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Accessors(chain = true)
 @TableName("history")
 public class History {
 
@@ -31,22 +31,22 @@ public class History {
     private Integer id;
 
     /**
-     * 浏览历史关联用户id
+     * 用户id
      */
     private Integer userId;
 
     /**
-     * 浏览历史类型
+     * 操作类型
      */
-    private Integer operateType;
+    private String operateType;
 
     /**
-     * 浏览历史关键字
+     * 关键字
      */
     private String keyword;
 
     /**
-     * 浏览时间
+     * 创建时间
      */
     private Date createTime;
 

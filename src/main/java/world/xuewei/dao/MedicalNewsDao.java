@@ -7,7 +7,7 @@ import world.xuewei.entity.MedicalNews;
 /**
  * 咨询数据库访问
  *
- * @author XUEW
+ *
  */
 @Repository
 public interface MedicalNewsDao extends BaseMapper<MedicalNews> {

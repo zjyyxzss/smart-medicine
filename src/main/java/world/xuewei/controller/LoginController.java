@@ -1,38 +1,25 @@
 package world.xuewei.controller;
 
 import cn.hutool.core.util.StrUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import world.xuewei.dto.RespResult;
 import world.xuewei.entity.User;
 import world.xuewei.utils.Assert;
+import world.xuewei.utils.JwtUtil;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 登录控制器
- * <p>
- * ==========================================================================
- * 郑重说明：本项目免费开源！原创作者为：薛伟同学，严禁私自出售。
- * ==========================================================================
- * B站账号：薛伟同学
- * 微信公众号：薛伟同学
- * 作者博客：http://xuewei.world
- * ==========================================================================
- * 陆陆续续总会收到粉丝的提醒，总会有些人为了赚取利益倒卖我的开源项目。
- * 不乏有粉丝朋友出现钱付过去，那边只把代码发给他就跑路的，最后还是根据线索找到我。。
- * 希望各位朋友擦亮慧眼，谨防上当受骗！
- * ==========================================================================
- *
- * @author <a href="http://xuewei.world/about">XUEW</a>
  */
 @RestController
 @RequestMapping(value = "login")
 public class LoginController extends BaseController<User> {
+    @Autowired
+    private JwtUtil jwtUtil;
 
     /**
      * 注册
@@ -76,9 +63,23 @@ public class LoginController extends BaseController<User> {
     public RespResult login(User user) {
         List<User> users = userService.query(user);
         if (Assert.notEmpty(users)) {
-            session.setAttribute("loginUser", users.get(0));
-            return RespResult.success("登录成功");
+            User loggedInUser = users.get(0);
+            session.setAttribute("loginUser", loggedInUser);
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("roles", "USER");
+            // 检查用户ID是否为空，防止空指针异常
+            if (loggedInUser.getId() == null) {
+                return RespResult.fail("用户数据异常，缺少用户ID");
+            }
+            String token = jwtUtil.generateToken(loggedInUser.getId().toString(), claims);
+            // 3. 返回 Token
+            Map<String, Object> responseData = new HashMap<>();
+            responseData.put("token", token);
+            responseData.put("user_id", loggedInUser.getId());
+            return RespResult.success("登录成功" , responseData);
+
         }
+
         if (Assert.isEmpty(userService.query(User.builder().userAccount(user.getUserAccount()).build()))) {
             return RespResult.fail("账户尚未注册");
         }
@@ -100,5 +101,9 @@ public class LoginController extends BaseController<User> {
         map.put("time", new Date());
         session.setAttribute("EMAIL_CODE" + email, map);
         return RespResult.success("发送成功");
+    }
+    
+    public static User UserBuilder() {
+        return new User();
     }
 }

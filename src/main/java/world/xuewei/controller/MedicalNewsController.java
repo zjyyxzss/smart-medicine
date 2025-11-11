@@ -8,7 +8,7 @@ import world.xuewei.entity.MedicalNews;
 /**
  * 咨询控制器
  *
- * @author XUEW
+ *
  */
 @RestController
 @RequestMapping("medical_news")

@@ -1,6 +1,8 @@
 package world.xuewei.dto;
 
-import com.alibaba.fastjson.JSONObject;
+
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +14,7 @@ import java.util.List;
 /**
  * 响应结果
  *
- * @author XUEW
+ *
  */
 @Data
 @Builder
@@ -39,7 +41,7 @@ public class RespResult {
      * 请求成功
      */
     public static RespResult success() {
-        return RespResult.builder()
+        return new RespResultBuilder()
                 .code("SUCCESS")
                 .message("请求成功")
                 .build();
@@ -49,7 +51,7 @@ public class RespResult {
      * 请求成功
      */
     public static RespResult success(String message) {
-        return RespResult.builder()
+        return new RespResultBuilder()
                 .code("SUCCESS")
                 .message(message)
                 .build();
@@ -59,7 +61,7 @@ public class RespResult {
      * 请求成功
      */
     public static RespResult success(String message, Object data) {
-        return RespResult.builder()
+        return new RespResultBuilder()
                 .code("SUCCESS")
                 .message(message)
                 .data(data)
@@ -70,7 +72,7 @@ public class RespResult {
      * 请求失败
      */
     public static RespResult fail() {
-        return RespResult.builder()
+        return new RespResultBuilder()
                 .code("FAIL")
                 .message("请求失败")
                 .build();
@@ -81,7 +83,7 @@ public class RespResult {
      * 请求失败
      */
     public static RespResult fail(String message) {
-        return RespResult.builder()
+        return new RespResultBuilder()
                 .code("FAIL")
                 .message(message)
                 .build();
@@ -91,7 +93,7 @@ public class RespResult {
      * 未查询到数据
      */
     public static RespResult notFound(String message, Object data) {
-        return RespResult.builder()
+        return new RespResultBuilder()
                 .code("NOT_FOUND")
                 .message(message)
                 .data(data)
@@ -102,7 +104,7 @@ public class RespResult {
      * 未查询到数据
      */
     public static RespResult notFound() {
-        return RespResult.builder()
+        return new RespResultBuilder()
                 .code("NOT_FOUND")
                 .message("请求失败")
                 .build();
@@ -113,7 +115,7 @@ public class RespResult {
      * 未查询到数据
      */
     public static RespResult notFound(String message) {
-        return RespResult.builder()
+        return new RespResultBuilder()
                 .code("NOT_FOUND")
                 .message(message)
                 .build();
@@ -123,7 +125,7 @@ public class RespResult {
      * 请求失败
      */
     public static RespResult fail(String message, Object data) {
-        return RespResult.builder()
+        return new RespResultBuilder()
                 .code("FAIL")
                 .message(message)
                 .data(data)
@@ -155,8 +157,8 @@ public class RespResult {
      * 获取响应的数据集合
      */
     public <T> List<T> getDataList(Class<T> clazz) {
-        String jsonString = JSONObject.toJSONString(data);
-        return JSONObject.parseArray(jsonString, clazz);
+        String jsonString = JSON.toJSONString(data);
+        return JSON.parseArray(jsonString, clazz);
     }
 
     /**
@@ -166,5 +168,4 @@ public class RespResult {
         String jsonString = JSONObject.toJSONString(data);
         return JSONObject.parseObject(jsonString, clazz);
     }
-
 }

@@ -7,7 +7,7 @@ import world.xuewei.entity.Illness;
 /**
  * 疾病数据库访问
  *
- * @author XUEW
+ *
  */
 @Repository
 public interface IllnessDao extends BaseMapper<Illness> {

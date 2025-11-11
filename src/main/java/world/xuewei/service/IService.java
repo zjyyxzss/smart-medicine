@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 基础服务接口
  *
- * @author XUEW
+ *
  */
 public interface IService<T> {
 
@@ -34,4 +34,6 @@ public interface IService<T> {
      * 查询全部
      */
     List<T> all();
+
+    T getById(Serializable id);
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * 疾病药品实体
  *
- * @author XUEW
+ *
  */
 @Data
 @NoArgsConstructor
@@ -47,5 +47,12 @@ public class IllnessMedicine {
      * 更新时间
      */
     private Date updateTime;
+
+    public void setIllnessMedicine(IllnessMedicine illnessMedicine) {
+        this.illnessId = illnessMedicine.illnessId;
+        this.medicineId = illnessMedicine.medicineId;
+        this.createTime = illnessMedicine.createTime;
+        this.updateTime = illnessMedicine.updateTime;
+    }
 
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * 浏览实体
  *
- * @author XUEW
+ *
  */
 @Data
 @NoArgsConstructor
@@ -37,4 +37,13 @@ public class Pageview implements Serializable {
      * 病的id
      */
     private Integer illnessId;
+    
+    public Integer getIllness_id() {
+        return illnessId;
+    }
+    
+    public void setPageviews(int pageviews) {
+        this.pageviews = pageviews;
+    }
+
 }

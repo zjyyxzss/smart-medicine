@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * 反馈实体
  *
- * @author XUEW
+ *
  */
 @Data
 @NoArgsConstructor
@@ -34,7 +34,7 @@ public class Feedback {
     private String name;
 
     /**
-     * 邮箱
+     * 邮箱地址
      */
     private String email;
 
@@ -57,5 +57,8 @@ public class Feedback {
      * 更新时间
      */
     private Date updateTime;
-
+    
+    public Integer getId() {
+        return id;
+    }
 }

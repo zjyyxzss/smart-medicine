@@ -2,6 +2,7 @@ package world.xuewei.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import world.xuewei.dao.MedicalNewsDao;
 import world.xuewei.entity.MedicalNews;
@@ -16,7 +17,7 @@ import java.util.Map;
 /**
  * 咨询服务类
  *
- * @author XUEW
+ *
  */
 @Service
 public class MedicalNewsService extends BaseService<MedicalNews> {
@@ -26,7 +27,7 @@ public class MedicalNewsService extends BaseService<MedicalNews> {
 
     @Override
     public List<MedicalNews> query(MedicalNews o) {
-        QueryWrapper<MedicalNews> wrapper = new QueryWrapper();
+        QueryWrapper<MedicalNews> wrapper = new QueryWrapper<>();
         if (Assert.notEmpty(o)) {
             Map<String, Object> bean2Map = BeanUtil.bean2Map(o);
             for (String key : bean2Map.keySet()) {
@@ -42,6 +43,12 @@ public class MedicalNewsService extends BaseService<MedicalNews> {
     @Override
     public List<MedicalNews> all() {
         return query(null);
+    }
+
+    @Override
+    @Cacheable(value = "medicalNews", key = "#id")
+    public MedicalNews getById(Serializable id) {
+        return medicalNewsDao.selectById(id);
     }
 
     @Override
