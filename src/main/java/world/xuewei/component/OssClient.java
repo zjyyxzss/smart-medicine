@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * 对象存储工具
  *
- * @author XUEW
+ *
  */
 @Component
 public class OssClient {

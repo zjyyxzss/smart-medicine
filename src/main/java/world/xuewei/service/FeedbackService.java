@@ -2,6 +2,7 @@ package world.xuewei.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import world.xuewei.dao.FeedbackDao;
 import world.xuewei.entity.Feedback;
@@ -16,7 +17,7 @@ import java.util.Map;
 /**
  * 反馈服务类
  *
- * @author XUEW
+ *
  */
 @Service
 public class FeedbackService extends BaseService<Feedback> {
@@ -42,6 +43,12 @@ public class FeedbackService extends BaseService<Feedback> {
     @Override
     public List<Feedback> all() {
         return query(null);
+    }
+
+    @Override
+    @Cacheable(value = "feedback", key = "#id")
+    public Feedback getById(Serializable id) {
+        return userDao.selectById(id);
     }
 
     @Override

@@ -7,12 +7,12 @@ import java.util.Map;
 /**
  * 断言判定
  *
- * @author XUEW
+ *
  */
 public class Assert {
 
     public static boolean isEmpty(CharSequence s) {
-        if (s == null || s.length() == 0) {
+        if (s == null || s.isEmpty()) {
             return true;
         }
         for (int i = 0; i < s.length(); ++i) {
@@ -40,7 +40,7 @@ public class Assert {
     }
 
     public static boolean isEmpty(List<?> obj) {
-        return obj == null || obj.size() == 0;
+        return obj == null || obj.isEmpty();
     }
 
     public static boolean notEmpty(CharSequence s) {

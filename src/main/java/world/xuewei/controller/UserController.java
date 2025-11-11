@@ -10,7 +10,7 @@ import world.xuewei.utils.Assert;
 /**
  * 用户控制器
  *
- * @author XUEW
+ *
  */
 @RestController
 @RequestMapping(value = "user")
@@ -42,4 +42,5 @@ public class UserController extends BaseController<User> {
         session.setAttribute("loginUser", loginUser);
         return RespResult.success("保存成功");
     }
+
 }

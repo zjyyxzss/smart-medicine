@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * 疾病分类实体
  *
- * @author XUEW
+ *
  */
 @Data
 @NoArgsConstructor

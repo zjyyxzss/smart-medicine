@@ -2,6 +2,7 @@ package world.xuewei.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import world.xuewei.dao.UserDao;
 import world.xuewei.entity.User;
@@ -16,7 +17,7 @@ import java.util.Map;
 /**
  * 用户服务类
  *
- * @author XUEW
+ *
  */
 @Service
 public class UserService extends BaseService<User> {
@@ -26,7 +27,7 @@ public class UserService extends BaseService<User> {
 
     @Override
     public List<User> query(User o) {
-        QueryWrapper<User> wrapper = new QueryWrapper();
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
         if (Assert.notEmpty(o)) {
             Map<String, Object> bean2Map = BeanUtil.bean2Map(o);
             for (String key : bean2Map.keySet()) {
@@ -42,6 +43,12 @@ public class UserService extends BaseService<User> {
     @Override
     public List<User> all() {
         return query(null);
+    }
+
+    @Override
+
+    public User getById(Serializable id) {
+        return null;
     }
 
     @Override

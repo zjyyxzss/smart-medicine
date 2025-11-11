@@ -8,19 +8,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户实体
  *
- * @author XUEW
+ *
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @TableName("user")
-public class User {
+public class User implements Serializable {
+    
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键ID

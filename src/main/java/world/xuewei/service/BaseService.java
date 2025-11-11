@@ -6,7 +6,7 @@ import world.xuewei.dao.*;
 /**
  * 基础服务类
  *
- * @author XUEW
+ *
  */
 public abstract class BaseService<T> implements IService<T> {
 

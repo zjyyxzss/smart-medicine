@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 药品数据库访问
  *
- * @author XUEW
+ *
  */
 @Repository
 public interface MedicineDao extends BaseMapper<Medicine> {

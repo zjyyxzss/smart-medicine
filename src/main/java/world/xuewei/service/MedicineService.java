@@ -1,7 +1,9 @@
 package world.xuewei.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import world.xuewei.dao.MedicineDao;
 import world.xuewei.entity.Medicine;
@@ -17,17 +19,28 @@ import java.util.Map;
 /**
  * 药品服务类
  *
- * @author XUEW
+ *
  */
 @Service
+@Slf4j
 public class MedicineService extends BaseService<Medicine> {
 
     @Autowired
     protected MedicineDao medicineDao;
 
+    /**
+         * 根据ID查询药品详情，并使用缓存
+     * */
+    @Override
+    @Cacheable(value = "medicine", key = "#id")
+    public Medicine getById(Serializable id) {
+        log.info("正在从数据库查询药品详情,id={}", id);
+        return medicineDao.selectById(id);
+    }
+
     @Override
     public List<Medicine> query(Medicine o) {
-        QueryWrapper<Medicine> wrapper = new QueryWrapper();
+        QueryWrapper<Medicine> wrapper = new QueryWrapper<>();
         if (Assert.notEmpty(o)) {
             Map<String, Object> bean2Map = BeanUtil.bean2Map(o);
             for (String key : bean2Map.keySet()) {

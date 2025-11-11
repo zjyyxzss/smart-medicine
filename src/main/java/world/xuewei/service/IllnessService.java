@@ -5,6 +5,7 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import world.xuewei.dao.IllnessDao;
 import world.xuewei.entity.*;
@@ -21,7 +22,6 @@ import java.util.Map;
 /**
  * 疾病服务类
  *
- * @author XUEW
  */
 @Service
 public class IllnessService extends BaseService<Illness> {
@@ -31,7 +31,7 @@ public class IllnessService extends BaseService<Illness> {
 
     @Override
     public List<Illness> query(Illness o) {
-        QueryWrapper<Illness> wrapper = new QueryWrapper();
+        QueryWrapper<Illness> wrapper = new QueryWrapper<>();
         if (Assert.notEmpty(o)) {
             Map<String, Object> bean2Map = BeanUtil.bean2Map(o);
             for (String key : bean2Map.keySet()) {
@@ -47,6 +47,12 @@ public class IllnessService extends BaseService<Illness> {
     @Override
     public List<Illness> all() {
         return query(null);
+    }
+
+    @Override
+    @Cacheable(value = "illness", key = "#id")
+    public Illness getById(Serializable id) {
+        return illnessDao.selectById(id);
     }
 
     @Override

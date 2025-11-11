@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * 变量名工具
  *
- * @author XUEW
+ *
  */
 public class VariableNameUtils {
 
