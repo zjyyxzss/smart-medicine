@@ -2,7 +2,11 @@ package world.xuewei.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 
+=======
+import org.springframework.cache.annotation.Cacheable;
+>>>>>>> 1251b11d1841a7f762a90ff77d621b552337bbf8
 import org.springframework.stereotype.Service;
 import world.xuewei.dao.UserDao;
 import world.xuewei.entity.User;
